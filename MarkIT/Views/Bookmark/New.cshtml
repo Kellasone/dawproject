@@ -1,17 +1,48 @@
-﻿@{
-    Layout = null;
+﻿@using Microsoft.AspNet.Identity
+@model MarkIT.Models.Bookmark
+
+@{
+    ViewBag.Title = "Create Bookmark";
 }
 
-<!DOCTYPE html>
+<h2>@ViewBag.Title</h2>
+<br />
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
-    </div>
-</body>
-</html>
+@using (Html.BeginForm(actionName: "New", controllerName: "Bookmark"))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Title", "Bookmark Title")
+    <br />
+    @Html.TextBox("Title", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Description", "Bookmark Description")
+    <br />
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Image", "Image Link")
+    <br />
+    @Html.TextBox("Image", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Image", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Link", "Redirect Link")
+    <br />
+    @Html.TextBox("Link", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Link", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Tags", "Tags")
+    <br />
+    @Html.TextBox("Tags", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Tags", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Hidden("UserId", User.Identity.GetUserId(), new { @class = "form-control" })
+
+    <button class="btn btn-sm btn-success" type="submit">Adauga articol</button>
+}
