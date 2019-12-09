@@ -94,7 +94,8 @@ namespace MarkIT.Controllers
                 }
                 else
                 {
-                    return View(requestBookmark);
+					Console.WriteLine("error");
+					return View(requestBookmark);
                 }
 
             }

@@ -27,12 +27,12 @@ namespace MarkIT.Models
 
         public string Tags { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 
     public class BookmarkDBContext : DbContext
     {
-        public BookmarkDBContext() : base("DefaultConnection") { }
+        public BookmarkDBContext() : base("BookmarksDatabase") { }
         public DbSet<Bookmark> Bookmarks { get; set; }
     }
 }
