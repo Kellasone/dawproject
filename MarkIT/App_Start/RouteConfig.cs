@@ -14,7 +14,7 @@ namespace MarkIT
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "Bookmarks",
                 url: "{controller}/{action}/{id}",
                 defaults: new
                 {
