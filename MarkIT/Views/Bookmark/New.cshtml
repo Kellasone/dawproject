@@ -10,7 +10,8 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Bookmark"))
 {
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    // Deleted the next line because we already have validation under each textbox individually, i dont think we need  the same messages few rows above
+   // @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
     @Html.Label("Title", "Bookmark Title")
     <br />
