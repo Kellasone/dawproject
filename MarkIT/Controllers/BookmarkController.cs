@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace MarkIT.Controllers
 {
-    public class CreateBookmarkController : Controller
+    public class BookmarkController : Controller
     {
         private BookmarkDBContext db = new BookmarkDBContext();
 

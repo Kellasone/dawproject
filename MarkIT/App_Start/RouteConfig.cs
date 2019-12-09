@@ -18,11 +18,12 @@ namespace MarkIT
                 url: "{controller}/{action}/{id}",
                 defaults: new
                 {
-                    controller = "Home",
+                    controller = "Bookmark",
                     action = "Index",
                     id = UrlParameter.Optional
                 }
             );
+			
         }
     }
 }
