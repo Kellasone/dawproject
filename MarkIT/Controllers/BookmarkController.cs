@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace MarkIT.Controllers
 {
+	
     public class BookmarkController : Controller
     {
         private BookmarkDBContext db = new BookmarkDBContext();
@@ -117,5 +119,13 @@ namespace MarkIT.Controllers
             return RedirectToAction("Index");
         }
 
+		public ActionResult PersonalBookmarks()
+		{
+			string user = User.Identity.GetUserId();
+			Bookmark[] listOfPersonalBookmarks = db.Bookmarks.Where(m => m.UserId == user).ToArray();
+			ViewBag.bookmarks = listOfPersonalBookmarks;
+			return View();
+
+		}
     }
 }
