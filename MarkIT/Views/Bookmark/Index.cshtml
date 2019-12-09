@@ -1,1 +1,28 @@
-﻿
+﻿@{
+    ViewBag.Title = "Bookmarks";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<hr />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
+}
+
+@foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
+{
+    <div class="panel panel-default">
+        @Html.Partial("BookmarkInfo", bookmark)
+        <div class="panel-footer">
+            <a class="btn btn-sm btn-success" href="/Bookmark/Show/@bookmark.Id">Show Bookmark</a>
+        </div>
+    </div>
+    <br />
+}
+
+<br />
+<a class="btn btn-info" href="/Bookmark/New">Create Bookmark</a>
+<br />

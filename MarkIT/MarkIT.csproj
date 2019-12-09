@@ -248,6 +248,7 @@
     <Content Include="Views\Bookmark\New.cshtml" />
     <Content Include="Views\Bookmark\Edit.cshtml" />
     <Content Include="Views\Bookmark\Delete.cshtml" />
+    <Content Include="Views\Shared\BookmarkInfo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
