@@ -1,10 +1,12 @@
 ﻿@model MarkIT.Models.Bookmark
-
-<div class="panel panel-default">
-    @Html.Partial("BookmarkInfo", @Model)
-    <div class="panel-footer">
-        <a class="btn btn-sm btn-success" href="/Bookmark/Show/@Model.Id">Show Bookmark</a>
+<br />
+<br />
+    <div class="panel panel-default">
+        @Html.Partial("BookmarkInfo", @Model)
+        <div class="panel-footer">
+            <a class="btn btn-info" href="/Bookmark/Index">All Bookmarks</a>
+        </div>
     </div>
-</div>
-<a class="btn btn-info" href="/Bookmark/Index">All Bookmarks</a>
+
+
 <br />

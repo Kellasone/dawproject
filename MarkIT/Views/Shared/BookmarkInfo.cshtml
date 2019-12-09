@@ -1,7 +1,14 @@
 ﻿@model MarkIT.Models.Bookmark
 
 <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src= "@Model.ImageLink" alt="Card image cap">
+    @if (HttpContext.Current.Request.Url.AbsolutePath.EndsWith("Index"))
+    {
+        <a href="/Bookmark/Show/@Model.Id" > <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap"></a>
+    }
+    else
+    {
+        <a href="@Model.Link" target="_blank"> <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap"></a>
+    }
     <div class="card-body">
         <h5 class="card-title">@Model.Title</h5>
         <p class="card-text">@Model.Description</p>
