@@ -1,7 +1,8 @@
 ﻿@model MarkIT.Models.Bookmark
 
 <div class="card" style="width: 18rem;">
-    @if (HttpContext.Current.Request.Url.AbsolutePath.EndsWith("Index"))
+
+    @if (ViewContext.RouteData.Values["action"].ToString().Equals("Index"))
     {
         <a href="/Bookmark/Show/@Model.Id" > <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap"></a>
     }
