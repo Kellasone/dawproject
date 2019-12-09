@@ -17,7 +17,7 @@
     //There is one problem with the title, it is always prep. with "Create Bookmark" message, cant figure out why yet
     @Html.Label("Title", "Bookmark Title")
     <br />
-    @Html.TextBox("Title", null, new { @class = "form-control" })
+    @Html.TextBox("Title", "", new { @class = "form-control" })
     @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
     <br /><br />
 
