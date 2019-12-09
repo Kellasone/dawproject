@@ -11,7 +11,7 @@ namespace MarkIT.Controllers
     {
         private BookmarkDBContext db = new BookmarkDBContext();
 
-        // GET: CreateBookmark
+        // GET: Bookmark
         public ActionResult Index()
         {
             var bookmarks = db.Bookmarks;

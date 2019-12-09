@@ -13,6 +13,7 @@
     // Deleted the next line because we already have validation under each textbox individually, i dont think we need  the same messages few rows above
    // @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
+    //There is one problem with the title, it is always prep. with "Create Bookmark" message, cant figure out why yet
     @Html.Label("Title", "Bookmark Title")
     <br />
     @Html.TextBox("Title", null, new { @class = "form-control" })
