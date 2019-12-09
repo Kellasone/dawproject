@@ -65,10 +65,12 @@ namespace MarkIT.Controllers
 
         public ActionResult Edit(int id)
         {
-            Bookmark bookmark = db.Bookmarks.Find(id);
-            ViewBag.Article = bookmark;
-            
-            return View(bookmark);
+			
+			  Bookmark bookmark = db.Bookmarks.Find(id);
+			  ViewBag.Article = bookmark; 
+			  return View(bookmark);
+			 
+	
         }
 
         [HttpPut]
