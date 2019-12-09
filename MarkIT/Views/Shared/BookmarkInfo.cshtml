@@ -10,8 +10,10 @@
     {
         <a href="@Model.Link" target="_blank"> <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap"></a>
     }
-    <div class="card-body">
-        <h5 class="card-title">@Model.Title</h5>
-        <p class="card-text">@Model.Description</p>
-    </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Description</p>
+            <i class="glyphicon glyphicon-user"></i>
+            <strong> @Model.User.UserName </strong>
+        </div>
 </div>

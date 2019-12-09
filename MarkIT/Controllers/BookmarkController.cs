@@ -16,7 +16,7 @@ namespace MarkIT.Controllers
         // GET: Bookmark
         public ActionResult Index()
         {
-            var bookmarks = db.Bookmarks;
+            var bookmarks = db.Bookmarks.Include("User");
 
             if (TempData.ContainsKey("message"))
             {
@@ -34,9 +34,12 @@ namespace MarkIT.Controllers
             return View(bookmark);
         }
 
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult New()
         {
             Bookmark bookmark = new Bookmark();
+
+            bookmark.UserId = User.Identity.GetUserId();
 
             return View(bookmark);
 
@@ -59,7 +62,7 @@ namespace MarkIT.Controllers
                     return View(bookmark);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return View(bookmark);
             }
@@ -75,6 +78,7 @@ namespace MarkIT.Controllers
 	
         }
 
+        [Authorize(Roles = "User, Administrator")]
         [HttpPut]
         public ActionResult Edit(int id, Bookmark requestBookmark)
         {
@@ -103,12 +107,13 @@ namespace MarkIT.Controllers
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return View(requestBookmark);
             }
         }
 
+        [Authorize(Roles = "User, Administrator")]
         [HttpDelete]
         public ActionResult Delete(int id)
         {
@@ -119,7 +124,8 @@ namespace MarkIT.Controllers
             return RedirectToAction("Index");
         }
 
-		public ActionResult PersonalBookmarks()
+        [Authorize(Roles = "User, Administrator")]
+        public ActionResult PersonalBookmarks()
 		{
 			string user = User.Identity.GetUserId();
 			Bookmark[] listOfPersonalBookmarks = db.Bookmarks.Where(m => m.UserId == user).ToArray();
