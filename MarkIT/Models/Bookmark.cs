@@ -33,7 +33,7 @@ namespace MarkIT.Models
 
     public class BookmarkDBContext : DbContext
     {
-        public BookmarkDBContext() : base("BookmarksDatabase") { }
+        public BookmarkDBContext() : base("DefaultConnection") { }
         public DbSet<Bookmark> Bookmarks { get; set; }
     }
 }
