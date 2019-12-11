@@ -12,7 +12,7 @@ namespace MarkIT.Controllers
     public class BookmarkController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private int _perPage = 5;
+        private int _perPage = 6;
 
         // GET: Bookmark
         public ActionResult Index()
