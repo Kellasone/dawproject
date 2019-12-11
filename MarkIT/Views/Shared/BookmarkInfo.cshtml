@@ -3,7 +3,7 @@
 
 <div class="card" style="width: 18rem;">
 
-    @if (ViewContext.RouteData.Values["action"].ToString().Equals("Index"))
+    @if (ViewContext.RouteData.Values["action"].ToString().Equals("Index") || ViewContext.RouteData.Values["action"].ToString().Equals("PersonalBookmarks") )
     {
         <a href="/Bookmark/Show/@Model.Id" > <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap"></a>
     }
