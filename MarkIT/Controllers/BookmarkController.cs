@@ -92,14 +92,13 @@ namespace MarkIT.Controllers
         {
 			
 			  Bookmark bookmark = db.Bookmarks.Find(id);
-			  ViewBag.Article = bookmark; 
+			  ViewBag.Bookmark = bookmark; 
 			  return View(bookmark);
 			 
-	
         }
-        
-        [HttpPut]
-        public ActionResult Edit(int id, Bookmark requestBookmark)
+
+		[HttpPost]
+		public ActionResult Edit(int id, Bookmark requestBookmark)
         {
             try
             {
