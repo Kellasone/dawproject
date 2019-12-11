@@ -113,7 +113,6 @@ namespace MarkIT.Controllers
         }
 
         [Authorize(Roles = "User, Administrator")]
-        [HttpDelete]
         public ActionResult Delete(int id)
         {
             Bookmark bookmark = db.Bookmarks.Find(id);

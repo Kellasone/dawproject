@@ -5,9 +5,8 @@
     <div class="panel-body">
         @Html.Partial("BookmarkInfo", @Model)
     </div>
-    <div class="panel-footer">
-        <a class="btn btn-info">Delete Bookmark</a>
-    </div>
+        <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
+    
 </div>
     
 <br />

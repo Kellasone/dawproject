@@ -1,10 +1,7 @@
 ﻿@{
     ViewBag.Title = "Bookmarks";
 }
-
 <h2>@ViewBag.Title</h2>
-
-
 <hr />
 
 @if (TempData.ContainsKey("message"))
@@ -12,13 +9,15 @@
     <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
 }
 
-@foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
-{
-    <div class="panel panel-default">
-        @Html.Partial("BookmarkInfo", bookmark)
+<div class="panel panel-default">
+    <div class="panel-body">
+        @foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
+        { 
+            @Html.Partial("BookmarkInfo", bookmark)
+            <br />
+        }
     </div>
-    <br />
-}
+</div>
 
 <br />
 <a class="btn btn-info" href="/Bookmark/New">Create Bookmark</a>
