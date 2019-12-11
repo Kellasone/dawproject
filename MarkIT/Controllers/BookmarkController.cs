@@ -50,8 +50,6 @@ namespace MarkIT.Controllers
                 ViewBag.afisareButoane = true;
             else
                 ViewBag.afisareButoane = false;
-            ViewBag.currentUser = User.Identity.GetUserId();
-            ViewBag.esteAdmin = User.IsInRole("Administrator");
 
             return View(bookmark);
         }
