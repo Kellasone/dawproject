@@ -15,7 +15,7 @@
             @foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
             {
                 <div class="col-md-4 row-style">
-                    <a href="/Bookmark/Show/bookmark.Id"> <img class="card-img-top" src="@bookmark.ImageLink" alt="Card image cap" width="200" height="300"></a>
+                    <a href="/Bookmark/Show/@bookmark.Id"> <img class="card-img-top" src="@bookmark.ImageLink" alt="Card image cap" width="200" height="300"></a>
                     <div class="card-body">
                         <h3 class="card-title">@bookmark.Title</h3>
                         <i class="glyphicon glyphicon-user"></i>
