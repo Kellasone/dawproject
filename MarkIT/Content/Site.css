@@ -22,3 +22,16 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.truncate {
+    /* Required declarations: */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    /* Limit the text block to x lines */
+    -webkit-line-clamp: 2;
+}
+
+.row-style {
+    margin-top: 50px;
+}

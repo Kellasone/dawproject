@@ -48,6 +48,8 @@ namespace MarkIT.Controllers
 
             if (User.Identity.GetUserId() == bookmark.UserId || User.IsInRole("Administrator"))
                 ViewBag.afisareButoane = true;
+            else
+                ViewBag.afisareButoane = false;
             ViewBag.currentUser = User.Identity.GetUserId();
             ViewBag.esteAdmin = User.IsInRole("Administrator");
 
