@@ -67,7 +67,7 @@ namespace MarkIT.Controllers
                 return View(bookmark);
             }
         }
-
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
 			
@@ -77,8 +77,7 @@ namespace MarkIT.Controllers
 			 
 	
         }
-
-        [Authorize(Roles = "User, Administrator")]
+        
         [HttpPut]
         public ActionResult Edit(int id, Bookmark requestBookmark)
         {
