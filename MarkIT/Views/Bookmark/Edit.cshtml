@@ -1,1 +1,51 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@model MarkIT.Models.Bookmark
+
+@{
+    ViewBag.Title = "Edit Bookmark";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Bookmark"))
+{
+    // Commented the next line because we already have validation under each textbox individually, i dont think we need  the same messages few rows above
+    //actually its useful for debuggin
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Title", "Bookmark Title")
+    <br />
+    @Html.TextBox("Title", Model.Title, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Description", "Bookmark Description")
+    <br />
+    @Html.TextArea("Description", Model.Description, new { @class = "form-control" })
+    @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("ImageLink", "Image Link")
+    <br />
+    @Html.TextBox("ImageLink", Model.ImageLink, new { @class = "form-control" })
+    @Html.ValidationMessage("ImageLink", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Link", "Redirect Link")
+    <br />
+    @Html.TextBox("Link", Model.Link, new { @class = "form-control" })
+    @Html.ValidationMessage("Link", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Tags", "Tags")
+    <br />
+    @Html.TextBox("Tags", Model.Tags, new { @class = "form-control" })
+    @Html.ValidationMessage("Tags", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Hidden("UserId", Model.UserId, new { @class = "form-control" })
+
+    <br />
+    <button class="btn btn-sm btn-success" type="submit">Submit changes</button>
+}

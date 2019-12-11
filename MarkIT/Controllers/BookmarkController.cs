@@ -50,8 +50,6 @@ namespace MarkIT.Controllers
                 ViewBag.afisareButoane = true;
             else
                 ViewBag.afisareButoane = false;
-            ViewBag.currentUser = User.Identity.GetUserId();
-            ViewBag.esteAdmin = User.IsInRole("Administrator");
 
             return View(bookmark);
         }
@@ -94,14 +92,13 @@ namespace MarkIT.Controllers
         {
 			
 			  Bookmark bookmark = db.Bookmarks.Find(id);
-			  ViewBag.Article = bookmark; 
+			  ViewBag.Bookmark = bookmark; 
 			  return View(bookmark);
 			 
-	
         }
-        
-        [HttpPut]
-        public ActionResult Edit(int id, Bookmark requestBookmark)
+
+		[HttpPost]
+		public ActionResult Edit(int id, Bookmark requestBookmark)
         {
             try
             {
@@ -119,7 +116,7 @@ namespace MarkIT.Controllers
                         db.SaveChanges();
                         TempData["message"] = "Bookmark edited!";
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Show/" + requestBookmark.Id);
                 }
                 else
                 {

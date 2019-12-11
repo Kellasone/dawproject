@@ -5,17 +5,14 @@
     <div class="panel-body">
         @Html.Partial("BookmarkInfo", @Model)
     </div>
-    <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
-    @if (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+
+
+    @if (ViewBag.afisareButoane == true)
     {
-        <div class="panel-footer article-panel-footer">
-            <a class="btn btn-primary" href="/Bookmark/Edit/@Model.Id">Edit</a>
-            using (Html.BeginForm(actionName: "Delete", controllerName: "Bookmark", method: FormMethod.Post, routeValues: new { id = @Model.Id }))
-            {
-                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                <button class="btn btn-danger" type="submit">Delete</button>
-            }
-        </div>
+    <div class="panel-footer article-panel-footer">
+        <a class="btn btn-info" href="/Bookmark/Edit/@Model.Id">Edit</a>
+        <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
+    </div>
     }
  </div>  
 <br />
