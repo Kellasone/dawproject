@@ -1,7 +1,13 @@
 ﻿@model MarkIT.Models.Bookmark
 <br />
 <br />
-    <div class="panel panel-default">
+<div class="panel panel-default">
+    <div class="panel-body">
         @Html.Partial("BookmarkInfo", @Model)
     </div>
+    <div class="panel-footer">
+        <a class="btn btn-info">Delete Bookmark</a>
+    </div>
+</div>
+    
 <br />

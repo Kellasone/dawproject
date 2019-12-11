@@ -44,7 +44,7 @@
     @Html.ValidationMessage("Tags", "", new { @class = "text-danger" })
     <br /><br />
 
-    //@Html.Hidden("UserId", User.Identity.GetUserId(), new { @class = "form-control" })
+    @Html.Hidden("UserId", User.Identity.GetUserId(), new { @class = "form-control" })
 
     <br />
     <button class="btn btn-sm btn-success" type="submit">Create Bookmark</button>
