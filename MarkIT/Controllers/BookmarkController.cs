@@ -116,7 +116,7 @@ namespace MarkIT.Controllers
                         db.SaveChanges();
                         TempData["message"] = "Bookmark edited!";
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Show/" + requestBookmark.Id);
                 }
                 else
                 {
