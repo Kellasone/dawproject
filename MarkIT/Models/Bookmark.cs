@@ -20,7 +20,7 @@ namespace MarkIT.Models
         public string Link { get; set; }
 
         [Required(ErrorMessage = "Title is required")]
-        [StringLength(20, ErrorMessage = "Title can not be longer than 20 characters")]
+        [StringLength(40, ErrorMessage = "Title can not be longer than 40 characters")]
         public string Title { get; set; }
 
         public string Description { get; set; }
