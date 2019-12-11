@@ -12,18 +12,32 @@ namespace MarkIT.Controllers
     public class BookmarkController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private int _perPage = 5;
 
         // GET: Bookmark
         public ActionResult Index()
         {
-			var bookmarks = db.Bookmarks.Include("User");
+			var bookmarks = db.Bookmarks.Include("User").OrderBy(a => a.Id);
 
 			if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }
 
-            ViewBag.Bookmarks = bookmarks;
+            var totalItems = bookmarks.Count();
+            var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+            var offset = 0;
+
+            if(!currentPage.Equals(0))
+            {
+                offset = (currentPage - 1) * this._perPage;
+            }
+            var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+            ViewBag.perPage = this._perPage;
+            ViewBag.total = totalItems;
+            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+            ViewBag.Bookmarks = paginatedBookmarks;
             
             return View();
         }
@@ -31,6 +45,12 @@ namespace MarkIT.Controllers
         public ActionResult Show(int id)
         {
             Bookmark bookmark = db.Bookmarks.Find(id);
+
+            if (User.Identity.GetUserId() == bookmark.UserId || User.IsInRole("Administrator"))
+                ViewBag.afisareButoane = true;
+            ViewBag.currentUser = User.Identity.GetUserId();
+            ViewBag.esteAdmin = User.IsInRole("Administrator");
+
             return View(bookmark);
         }
 
