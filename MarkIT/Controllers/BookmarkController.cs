@@ -11,14 +11,14 @@ namespace MarkIT.Controllers
 	
     public class BookmarkController : Controller
     {
-        private BookmarkDBContext db = new BookmarkDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Bookmark
         public ActionResult Index()
         {
-            var bookmarks = db.Bookmarks.Include("User");
+			var bookmarks = db.Bookmarks.Include("User");
 
-            if (TempData.ContainsKey("message"))
+			if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }

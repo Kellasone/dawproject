@@ -112,7 +112,9 @@ namespace MarkIT
     {
         public ApplicationRoleManager(IRoleStore<IdentityRole, string> store) : base(store)
         {
+
         }
+
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
             var roleStore = new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>());

@@ -15,6 +15,7 @@ namespace MarkIT
             // Se apeleaza o metoda in care se adauga contul de administrator si rolurile aplicatiei
             createAdminUserAndApplicationRoles();
         }
+
         private void createAdminUserAndApplicationRoles()
         {
             ApplicationDbContext context = new ApplicationDbContext();
