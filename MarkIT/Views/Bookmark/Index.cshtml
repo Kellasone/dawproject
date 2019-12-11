@@ -10,13 +10,16 @@
 }
 <div class="panel panel-default">
     <div class="panel-body">
-        @foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
-        {
-            @Html.Partial("BookmarkInfo", bookmark)
-            <br />
-        }
-    </div>
-</div>
+        <div class="row">
+            @foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
+            {
+            <div class="col-md-3 row-style">
+                @Html.Partial("BookmarkInfo", bookmark)
+                <br />
+            </div>
+            }
+                
+        </div>
 
 <div>
     <nav aria-label="Page navigation">
