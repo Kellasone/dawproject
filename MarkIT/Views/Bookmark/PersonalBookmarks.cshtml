@@ -1,4 +1,8 @@
-﻿<div class="panel panel-default">
+﻿@if (ViewBag.Bookmarks.Length == 0) {
+<h1>You have no bookmarks!</h1>
+}
+else {
+<div class="panel panel-default">
     <div class="panel-body">
 
         @foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
@@ -10,3 +14,4 @@
         }
     </div>
 </div>
+}
