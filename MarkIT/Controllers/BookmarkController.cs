@@ -17,7 +17,7 @@ namespace MarkIT.Controllers
         // GET: Bookmark
         public ActionResult Index()
         {
-			var bookmarks = db.Bookmarks.Include("User").OrderBy(a => a.Id);
+			var bookmarks = db.Bookmarks.Include("User").OrderByDescending(a => a.Id);
 
 			if (TempData.ContainsKey("message"))
             {
