@@ -1,8 +1,12 @@
-﻿@foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
-{
-    <div class="panel panel-default">
-        @Html.Partial("BookmarkInfo", bookmark)
+﻿<div class="panel panel-default">
+    <div class="panel-body">
 
+        @foreach (MarkIT.Models.Bookmark bookmark in ViewBag.Bookmarks)
+        {
+
+            @Html.Partial("BookmarkInfo", bookmark)
+
+            <br />
+        }
     </div>
-    <br />
-}
+</div>

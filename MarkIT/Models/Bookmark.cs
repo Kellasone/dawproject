@@ -20,7 +20,7 @@ namespace MarkIT.Models
         public string Link { get; set; }
 
         [Required(ErrorMessage = "Title is required")]
-        [StringLength(20, ErrorMessage = "Title can not be longer than 20 characters")]
+        [StringLength(40, ErrorMessage = "Title can not be longer than 40 characters")]
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -28,11 +28,12 @@ namespace MarkIT.Models
         public string Tags { get; set; }
 
         public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 
     public class BookmarkDBContext : DbContext
     {
-        public BookmarkDBContext() : base("BookmarksDatabase") { }
+        public BookmarkDBContext() : base("DefaultConnection") { }
         public DbSet<Bookmark> Bookmarks { get; set; }
     }
 }

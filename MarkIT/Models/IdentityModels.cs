@@ -24,10 +24,12 @@ namespace MarkIT.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        public DbSet<Bookmark> Bookmarks { get; set; }
 
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext();
+			
+			return new ApplicationDbContext();
         }
     }
 }

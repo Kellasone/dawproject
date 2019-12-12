@@ -11,19 +11,33 @@ namespace MarkIT.Controllers
 	
     public class BookmarkController : Controller
     {
-        private BookmarkDBContext db = new BookmarkDBContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
+        private int _perPage = 6;
 
         // GET: Bookmark
         public ActionResult Index()
         {
-            var bookmarks = db.Bookmarks;
+			var bookmarks = db.Bookmarks.Include("User").OrderBy(a => a.Id);
 
-            if (TempData.ContainsKey("message"))
+			if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }
 
-            ViewBag.Bookmarks = bookmarks;
+            var totalItems = bookmarks.Count();
+            var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+            var offset = 0;
+
+            if(!currentPage.Equals(0))
+            {
+                offset = (currentPage - 1) * this._perPage;
+            }
+            var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+            ViewBag.perPage = this._perPage;
+            ViewBag.total = totalItems;
+            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+            ViewBag.Bookmarks = paginatedBookmarks;
             
             return View();
         }
@@ -31,12 +45,21 @@ namespace MarkIT.Controllers
         public ActionResult Show(int id)
         {
             Bookmark bookmark = db.Bookmarks.Find(id);
+
+            if (User.Identity.GetUserId() == bookmark.UserId || User.IsInRole("Administrator"))
+                ViewBag.afisareButoane = true;
+            else
+                ViewBag.afisareButoane = false;
+
             return View(bookmark);
         }
 
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult New()
         {
             Bookmark bookmark = new Bookmark();
+
+            bookmark.UserId = User.Identity.GetUserId();
 
             return View(bookmark);
 
@@ -59,24 +82,23 @@ namespace MarkIT.Controllers
                     return View(bookmark);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return View(bookmark);
             }
         }
-
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
 			
 			  Bookmark bookmark = db.Bookmarks.Find(id);
-			  ViewBag.Article = bookmark; 
+			  ViewBag.Bookmark = bookmark; 
 			  return View(bookmark);
 			 
-	
         }
 
-        [HttpPut]
-        public ActionResult Edit(int id, Bookmark requestBookmark)
+		[HttpPost]
+		public ActionResult Edit(int id, Bookmark requestBookmark)
         {
             try
             {
@@ -94,7 +116,7 @@ namespace MarkIT.Controllers
                         db.SaveChanges();
                         TempData["message"] = "Bookmark edited!";
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Show/" + requestBookmark.Id);
                 }
                 else
                 {
@@ -103,13 +125,13 @@ namespace MarkIT.Controllers
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return View(requestBookmark);
             }
         }
 
-        [HttpDelete]
+        [Authorize(Roles = "User, Administrator")]
         public ActionResult Delete(int id)
         {
             Bookmark bookmark = db.Bookmarks.Find(id);
@@ -119,7 +141,8 @@ namespace MarkIT.Controllers
             return RedirectToAction("Index");
         }
 
-		public ActionResult PersonalBookmarks()
+        [Authorize(Roles = "User, Administrator")]
+        public ActionResult PersonalBookmarks()
 		{
 			string user = User.Identity.GetUserId();
 			Bookmark[] listOfPersonalBookmarks = db.Bookmarks.Where(m => m.UserId == user).ToArray();

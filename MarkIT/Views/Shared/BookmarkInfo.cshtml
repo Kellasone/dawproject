@@ -1,17 +1,20 @@
 ﻿@model MarkIT.Models.Bookmark
+@using Microsoft.AspNet.Identity
 
 <div class="card" style="width: 18rem;">
 
-    @if (ViewContext.RouteData.Values["action"].ToString().Equals("Index"))
+    @if (ViewContext.RouteData.Values["action"].ToString().Equals("Index") || ViewContext.RouteData.Values["action"].ToString().Equals("PersonalBookmarks") )
     {
-        <a href="/Bookmark/Show/@Model.Id" > <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap"></a>
+        <a href="/Bookmark/Show/@Model.Id" > <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap" width="200" height="300"></a>
     }
     else
     {
-        <a href="@Model.Link" target="_blank"> <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap"></a>
+        <a href="@Model.Link" target="_blank"> <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap" width="200" height="300"></a>
     }
-    <div class="card-body">
-        <h5 class="card-title">@Model.Title</h5>
-        <p class="card-text">@Model.Description</p>
-    </div>
+        <div class="card-body">
+            <h3 class="card-title">@Model.Title</h3>
+            <p class="card-text">@Model.Description</p>
+            <i class="glyphicon glyphicon-user"></i>
+            <strong> @Model.User.UserName</strong>
+        </div>
 </div>

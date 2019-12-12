@@ -15,6 +15,7 @@ namespace MarkIT
             // Se apeleaza o metoda in care se adauga contul de administrator si rolurile aplicatiei
             createAdminUserAndApplicationRoles();
         }
+
         private void createAdminUserAndApplicationRoles()
         {
             ApplicationDbContext context = new ApplicationDbContext();
@@ -27,10 +28,12 @@ namespace MarkIT
                 var role = new IdentityRole();
                 role.Name = "Administrator";
                 roleManager.Create(role);
+
                 // se adauga utilizatorul administrator
                 var user = new ApplicationUser();
                 user.UserName = "admin@admin.com";
                 user.Email = "admin@admin.com";
+
                 var adminCreated = UserManager.Create(user, "Administrator1!");
                 if (adminCreated.Succeeded)
                 {

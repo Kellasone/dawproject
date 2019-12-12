@@ -1,7 +1,18 @@
 ﻿@model MarkIT.Models.Bookmark
 <br />
 <br />
-    <div class="panel panel-default">
+<div class="panel panel-default">
+    <div class="panel-body">
         @Html.Partial("BookmarkInfo", @Model)
     </div>
+
+
+    @if (ViewBag.afisareButoane == true)
+    {
+    <div class="panel-footer article-panel-footer">
+        <a class="btn btn-info" href="/Bookmark/Edit/@Model.Id">Edit</a>
+        <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
+    </div>
+    }
+ </div>  
 <br />
