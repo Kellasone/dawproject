@@ -27,7 +27,7 @@
                         <li>@Html.ActionLink("My bookmarks", "PersonalBookmarks", "Bookmark")</li>
                         <li>@Html.ActionLink("Create bookmark", "New", "Bookmark")</li>
                     }
-                        <li>@Html.TextBox("myTextBox", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px" })</li>
+                        <li style="width: 400px; margin-left:30px;">@Html.TextBox("myTextBox", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px; max-width:100%"})</li>
                     </ul>
                 @Html.Partial("_LoginPartial")
             </div>
