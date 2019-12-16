@@ -28,6 +28,7 @@ textarea {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
     /* Limit the text block to x lines */
     -webkit-line-clamp: 2;
 }
