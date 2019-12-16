@@ -11,16 +11,17 @@
             <h4>@Model.Tags</h4>
             <i class="glyphicon glyphicon-user"></i>
             <strong> @Model.User.UserName</strong>
+            <br />
+            <br />
+            @if (ViewBag.afisareButoane == true)
+            {
+                <a class="btn btn-info" href="/Bookmark/Edit/@Model.Id">Edit</a>
+                <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
+            }
         </div>
         </div>
 
 
-    @if (ViewBag.afisareButoane == true)
-    {
-    <div class="panel-footer article-panel-footer">
-        <a class="btn btn-info" href="/Bookmark/Edit/@Model.Id">Edit</a>
-        <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
-    </div>
-    }
+
  </div>  
 <br />
