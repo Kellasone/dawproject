@@ -5,9 +5,8 @@
     <div class="panel-body" style="display: flex">
         <a href="@Model.Link"><img src="@Model.ImageLink" style="float:left; max-width: 500px" /> </a>
         <div style="float: right; padding-left: 20px">
-            </divstyle="float:>
             <h1>@Model.Title</h1>
-            <h3>@Model.Description</h3>
+            <h>@Model.Description</h>
             <h4>@Model.Tags</h4>
             <i class="glyphicon glyphicon-user"></i>
             <strong> @Model.User.UserName</strong>
@@ -19,9 +18,6 @@
                 <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
             }
         </div>
-        </div>
-
-
-
+    </div>
  </div>  
 <br />
