@@ -8,9 +8,34 @@
             <h1>@Model.Title</h1>
             <h>@Model.Description</h>
             <h4>@Model.Tags</h4>
+
             <i class="glyphicon glyphicon-user"></i>
             <strong> @Model.User.UserName</strong>
             <br />
+            @if (Model.Votes.Count == 1)
+            {
+            <h6>@Model.Votes.Count vote.</h6>
+            }
+            else
+            { <h6>@Model.Votes.Count votes.</h6>}
+            <br />
+
+            <br />
+
+
+            @if (@Model.Comments.Count.Equals(0))
+            {
+                <h6>There are no comments yet!</h6>
+            }
+            else
+            {
+                foreach (var comment in Model.Comments)
+                {<h5>@comment.Content</h5>
+
+                <h6> @comment.UserName</h6> <br />
+            }
+        }
+
             <br />
             @if (ViewBag.afisareButoane == true)
             {

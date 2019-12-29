@@ -14,5 +14,9 @@ namespace MarkIT.Models
 		public string Content { get; set; }
 		[Required]
 		public int BookmarkId { get; set; }
+		[Required]
+		public string UserName { get; set; }
+
+		public virtual Bookmark Bookmark { get; set; }
 	}
 }
