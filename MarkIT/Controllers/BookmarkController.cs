@@ -51,6 +51,13 @@ namespace MarkIT.Controllers
             else
                 ViewBag.afisareButoane = false;
 
+
+			bool voted = false;
+			foreach (var vote in bookmark.Votes)
+				if (vote.UserId == User.Identity.GetUserId())
+					voted = true;
+			ViewBag.voted = voted;
+
             return View(bookmark);
         }
 
@@ -150,6 +157,31 @@ namespace MarkIT.Controllers
 			return View();
 
 		}
-        
-    }
+
+
+		public ActionResult Vote(int id)
+		{
+			Vote vote = new Vote();
+			vote.BookmarkId = id;
+			vote.UserId = User.Identity.GetUserId();
+			db.Votes.Add(vote);
+			db.SaveChanges();
+			return RedirectToAction("Show/" + id);
+		}
+
+		public ActionResult Unvote(int id)
+		{
+			
+			Bookmark bookmark = db.Bookmarks.Find(id);
+			foreach (Vote vote in bookmark.Votes)
+				if (vote.UserId == User.Identity.GetUserId())
+				{ db.Votes.Remove(vote);
+					db.SaveChanges();
+					break;
+				}
+			
+			return RedirectToAction("Show/" + id);
+		}
+
+	}
 }

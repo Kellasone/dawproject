@@ -24,7 +24,9 @@ namespace MarkIT.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        public DbSet<Bookmark> Bookmarks { get; set; }
+		public DbSet<Comment> Comments { get; set; }
+		public DbSet<Vote> Votes { get; set; }
+		public DbSet<Bookmark> Bookmarks { get; set; }
 
         public static ApplicationDbContext Create()
         {
