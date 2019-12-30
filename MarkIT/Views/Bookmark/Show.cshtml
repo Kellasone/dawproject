@@ -48,9 +48,18 @@
             else
             {
                 foreach (var comment in Model.Comments)
-                {<h5>@comment.Content</h5>
+                {<h5>
+                    @comment.Content -
+                    @if(ViewBag.afisareButoane == true)
+                {<span>Edit | Delete </span>}
+            </h5>
 
-                <h6> @comment.UserName</h6> <br />
+                
+
+                <h6>
+                    @comment.UserName
+
+                </h6> <br />
             }
         }
 
