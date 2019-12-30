@@ -148,7 +148,17 @@ namespace MarkIT.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "User, Administrator")]
+
+		[Authorize(Roles = "User, Administrator")]
+		public ActionResult DeleteComment(int id)
+		{
+			Comment comment = db.Comments.Find(id);
+			db.Comments.Remove(comment);
+			db.SaveChanges();
+			return RedirectToAction("/Show/"+comment.BookmarkId);
+		}
+
+		[Authorize(Roles = "User, Administrator")]
         public ActionResult PersonalBookmarks()
 		{
 			string user = User.Identity.GetUserId();

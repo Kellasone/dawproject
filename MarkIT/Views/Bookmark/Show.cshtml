@@ -49,9 +49,11 @@
             {
                 foreach (var comment in Model.Comments)
                 {<h5>
-                    @comment.Content -
-                    @if(ViewBag.afisareButoane == true)
-                {<span>Edit | Delete </span>}
+                    @comment.Content 
+                    @if(User.Identity.Name == comment.UserName || User.IsInRole("Administrator"))
+                {<span>
+    <a href="/Bookmark/DeleteComment/@comment.CommentId">Delete</a>
+</span>}
             </h5>
 
                 
