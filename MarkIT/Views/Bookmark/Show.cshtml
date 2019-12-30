@@ -12,25 +12,30 @@
             <i class="glyphicon glyphicon-user"></i>
             <strong> @Model.User.UserName</strong>
             <br />
-                
-                @if (Model.Votes.Count == 1)
-                {
-            <h6>
-                @Model.Votes.Count vote.
-                            @if(User.Identity.IsAuthenticated)
-                            { if (ViewBag.Voted == false)
-                            {<a class="btn btn-info" href="/Bookmark/Vote/@Model.Id" >Vote</a>}
-                            else {<a class="btn btn-info" href="/Bookmark/Unvote/@Model.Id">Unvote</a> } }
-                        </h6>
-                }
-                else
-                { <h6>
-    @Model.Votes.Count votes.  @if (User.Identity.IsAuthenticated)
-    { if (ViewBag.Voted == false)
-    {<a class="btn btn-info" href="/Bookmark/Vote/@Model.Id">Vote</a>}
-    else
-    {<a class="btn btn-info" href="/Bookmark/Unvote/@Model.Id">Unvote</a>} }
-</h6>}
+
+            @if (Model.Votes.Count == 1)
+            {
+                <h6>
+                    @Model.Votes.Count vote.
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (ViewBag.Voted == false)
+                        {<a class="btn btn-info" href="/Bookmark/Vote/@Model.Id">Vote</a>}
+                        else
+                        {<a class="btn btn-info" href="/Bookmark/Unvote/@Model.Id">Unvote</a>}
+                    }
+                </h6>
+            }
+            else
+            { <h6>
+                    @Model.Votes.Count votes.  @if (User.Identity.IsAuthenticated)
+                    {
+                        if (ViewBag.Voted == false)
+                        {<a class="btn btn-info" href="/Bookmark/Vote/@Model.Id">Vote</a>}
+                        else
+                        {<a class="btn btn-info" href="/Bookmark/Unvote/@Model.Id">Unvote</a>}
+                    }
+                </h6>}
             <br />
 
             <br />
@@ -49,13 +54,25 @@
             }
         }
 
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm(actionName: "AddComment", controllerName: "Bookmark"))
+                {
+                    @Html.TextBox("content", "", new { @class = "form-control" });
+                    @Html.Hidden("BookmarkId", Model.Id, new { @class = "form-control" })
+
+                    <button class="btn btn-sm btn-success" type="submit">Add Comment</button>
+                }
+            }
+
             <br />
             @if (ViewBag.afisareButoane == true)
             {
                 <a class="btn btn-info" href="/Bookmark/Edit/@Model.Id">Edit</a>
                 <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
             }
-</div>
+        </div>
     </div>
  </div>  
 <br />

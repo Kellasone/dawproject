@@ -183,5 +183,21 @@ namespace MarkIT.Controllers
 			return RedirectToAction("Show/" + id);
 		}
 
+		public ActionResult AddComment()
+		{
+			Comment comment = new Comment();
+			return View(comment);
+		}
+
+		[HttpPost]
+		public ActionResult AddComment(Comment comment)
+		{
+			
+			comment.UserName = User.Identity.GetUserName();
+			db.Comments.Add(comment);
+			db.SaveChanges();
+			return RedirectToAction("/show/"+comment.BookmarkId);
+		}
+
 	}
 }
