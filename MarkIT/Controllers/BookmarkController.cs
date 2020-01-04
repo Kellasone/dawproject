@@ -1,8 +1,6 @@
 ﻿using MarkIT.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 
@@ -45,6 +43,7 @@ namespace MarkIT.Controllers
         public ActionResult Show(int id)
         {
             Bookmark bookmark = db.Bookmarks.Find(id);
+            ViewBag.Username = bookmark.User.UserName.Substring(0, bookmark.User.UserName.IndexOf('@'));
 
             if (User.Identity.GetUserId() == bookmark.UserId || User.IsInRole("Administrator"))
                 ViewBag.afisareButoane = true;
@@ -53,11 +52,20 @@ namespace MarkIT.Controllers
 
 
 			bool voted = false;
-			foreach (var vote in bookmark.Votes)
-				if (vote.UserId == User.Identity.GetUserId())
-					voted = true;
-			ViewBag.voted = voted;
+            bool saved = false;
+            foreach (var vote in bookmark.Votes)
+                if (vote.UserId == User.Identity.GetUserId())
+                    voted = true;
+            string user = User.Identity.GetUserId();
+            SavedBookmarks[] listOfSavedBookmarks = db.SavedBookmarks.Where(m => m.UserId == user).ToArray();
+            foreach(var itemSavedBookmark in listOfSavedBookmarks)
+            {
+                if (itemSavedBookmark.BookmarkId == id)
+                   saved = true;
+            }
 
+            ViewBag.Voted = voted;
+            ViewBag.Saved = saved;
             return View(bookmark);
         }
 
@@ -67,7 +75,7 @@ namespace MarkIT.Controllers
             Bookmark bookmark = new Bookmark();
 
             bookmark.UserId = User.Identity.GetUserId();
-
+            
             return View(bookmark);
 
         }
@@ -209,5 +217,35 @@ namespace MarkIT.Controllers
 			return RedirectToAction("/show/"+comment.BookmarkId);
 		}
 
-	}
+        public ActionResult SaveBookmark (int id)
+        {
+            SavedBookmarks savedBookmark = new SavedBookmarks();
+            savedBookmark.BookmarkId = id;
+            savedBookmark.UserId = User.Identity.GetUserId();
+            db.SavedBookmarks.Add(savedBookmark);
+            db.SaveChanges();
+            return RedirectToAction("/show/" + id);
+        }
+
+        public ActionResult DeleteSavedBookmark(int id)
+        {
+            
+            int bookmarkId = id;
+            string userId = User.Identity.GetUserId();
+
+            SavedBookmarks[] listofUserSavedBookmarks = db.SavedBookmarks.Where(m => m.UserId == userId).ToArray();
+
+            foreach(var savedBookmark in listofUserSavedBookmarks)
+            {
+                if (savedBookmark.BookmarkId == bookmarkId)
+                    db.SavedBookmarks.Remove(savedBookmark);
+            }
+            
+            db.SaveChanges();
+            return RedirectToAction("/show/" + id);
+        }
+
+     
+
+    }
 }

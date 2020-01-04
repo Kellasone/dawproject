@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,6 +11,8 @@ namespace MarkIT.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+
+       
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -16,6 +20,8 @@ namespace MarkIT.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public virtual ICollection<SavedBookmarks> SavedBookmarks { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -24,7 +30,8 @@ namespace MarkIT.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-		public DbSet<Comment> Comments { get; set; }
+        public DbSet<SavedBookmarks> SavedBookmarks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 		public DbSet<Vote> Votes { get; set; }
 		public DbSet<Bookmark> Bookmarks { get; set; }
 

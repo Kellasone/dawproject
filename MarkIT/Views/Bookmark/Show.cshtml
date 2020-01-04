@@ -1,16 +1,18 @@
 ﻿@model MarkIT.Models.Bookmark
+
 <br />
 <br />
 <div class="panel panel-default">
     <div class="panel-body" style="display: flex">
         <a href="@Model.Link"><img src="@Model.ImageLink" style="float:left; max-width: 500px" /> </a>
+       
         <div style="float: right; padding-left: 20px">
             <h1>@Model.Title</h1>
             <h>@Model.Description</h>
             <h4>@Model.Tags</h4>
 
             <i class="glyphicon glyphicon-user"></i>
-            <strong> @Model.User.UserName</strong>
+            <a href="/User/show/@Model.UserId"><strong> @ViewBag.username</strong></a>
             <br />
 
             @if (Model.Votes.Count == 1)
@@ -38,6 +40,18 @@
                 </h6>}
             <br />
 
+            @if(User.Identity.IsAuthenticated)
+            {
+                if (!ViewBag.saved)
+                {
+                    <a class="btn btn-info" href="/Bookmark/SaveBookmark/@Model.Id">Save Bookmark</a>
+                }else
+                {
+                    <a class="btn btn-info" disabled>Bookmark saved</a>
+                    <a class="btn btn-info" href="/Bookmark/DeleteSavedBookmark/@Model.Id">Delete Bookmark</a>
+                }
+            }
+
             <br />
 
 
@@ -49,21 +63,21 @@
             {
                 foreach (var comment in Model.Comments)
                 {<h5>
-                    @comment.Content 
-                    @if(User.Identity.Name == comment.UserName || User.IsInRole("Administrator"))
-                {<span>
-    <a href="/Bookmark/DeleteComment/@comment.CommentId">Delete</a>
-</span>}
-            </h5>
+                        @comment.Content
+                        @if (User.Identity.Name == comment.UserName || User.IsInRole("Administrator"))
+                        {<span>
+                                <a href="/Bookmark/DeleteComment/@comment.CommentId">Delete</a>
+                            </span>}
+                    </h5>
 
-                
 
-                <h6>
-                    @comment.UserName
 
-                </h6> <br />
+                    <h6>
+                        @comment.UserName
+
+                    </h6> <br />
+                }
             }
-        }
 
 
             @if (User.Identity.IsAuthenticated)
