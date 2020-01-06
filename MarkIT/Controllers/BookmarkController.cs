@@ -170,8 +170,27 @@ namespace MarkIT.Controllers
         public ActionResult PersonalBookmarks()
 		{
 			string user = User.Identity.GetUserId();
-			Bookmark[] listOfPersonalBookmarks = db.Bookmarks.Where(m => m.UserId == user).ToArray();
-			ViewBag.bookmarks = listOfPersonalBookmarks;
+            //Bookmark[] listOfPersonalBookmarks = db.Bookmarks.Where(m => m.UserId == user).ToArray();
+            //ViewBag.bookmarks = listOfPersonalBookmarks;
+
+            var bookmarks = db.Bookmarks.Where(m => m.UserId == user).OrderByDescending(a => a.Id);
+
+            var totalItems = bookmarks.Count();
+            var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+            var offset = 0;
+
+            if(!currentPage.Equals(0))
+            {
+                offset = (currentPage - 1) * this._perPage;
+            }
+            var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+            ViewBag.perPage = this._perPage;
+            ViewBag.total = totalItems;
+            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+            ViewBag.Bookmarks = paginatedBookmarks;
+
+
 			return View();
 
 		}
