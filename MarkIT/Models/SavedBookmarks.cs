@@ -15,6 +15,10 @@ namespace MarkIT.Models
         [Required]
         public int BookmarkId { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
-    }
+		[Required]
+		public virtual Category Category { get; set; }
+
+
+		public virtual ApplicationUser User { get; set; }
+	}
 }

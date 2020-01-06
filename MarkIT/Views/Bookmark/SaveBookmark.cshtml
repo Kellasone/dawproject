@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "SaveBookmark";
+}
+
+<h2>SaveBookmark</h2>
+
+@ViewBag.BookmarkId
+@if (Enumerable.Any(ViewBag.Categories))
+{
+    <strong>Select a category:</strong>
+    <select>
+
+        @foreach (var category in ViewBag.Categories)
+        {
+        <option title="" value="@category.Id">@category.Title</option>
+        }
+
+    </select>
+    
+}
+
+
+
+<a class="btn btn" href=""></a>
+<hr />
+<a class="btn btn-info" href="/category/new">Create New Category</a>
+

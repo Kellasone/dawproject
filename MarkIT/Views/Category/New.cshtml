@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNet.Identity
+@model MarkIT.Models.Category
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Category"))
+{
+    // Commented the next line because we already have validation under each textbox individually, i dont think we need  the same messages few rows above
+    //actually its useful for debuggin
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Title", "Category Title")
+    <br />
+    @Html.TextBox("Title", "", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+    <br /><br />
+
+
+
+    @Html.Hidden("UserId", User.Identity.GetUserId(), new { @class = "form-control" })
+
+    <br />
+    <button class="btn btn-sm btn-success" type="submit">Create Category</button>
+}
+

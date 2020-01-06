@@ -219,12 +219,24 @@ namespace MarkIT.Controllers
 
         public ActionResult SaveBookmark (int id)
         {
-            SavedBookmarks savedBookmark = new SavedBookmarks();
-            savedBookmark.BookmarkId = id;
-            savedBookmark.UserId = User.Identity.GetUserId();
-            db.SavedBookmarks.Add(savedBookmark);
-            db.SaveChanges();
-            return RedirectToAction("/show/" + id);
+			// SavedBookmarks savedBookmark = new SavedBookmarks();
+			//savedBookmark.BookmarkId = id;
+			//savedBookmark.UserId = User.Identity.GetUserId();
+			// db.SavedBookmarks.Add(savedBookmark);
+			// db.SaveChanges();
+			// return RedirectToAction("/show/" + id);
+			string user = User.Identity.GetUserId();
+			ViewBag.Categories = db.Category.Where(m => m.UserId == user);
+			ViewBag.BookmarkId = id;
+			return View();
+        }
+		public ActionResult SaveBookmark (SavedBookmarks savedBookmark)
+        {
+			
+			string user = User.Identity.GetUserId();
+			ViewBag.Categories = db.Category.Where(m => m.UserId == user);
+			
+			return View();
         }
 
         public ActionResult DeleteSavedBookmark(int id)

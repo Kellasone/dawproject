@@ -34,6 +34,8 @@ namespace MarkIT.Models
         public DbSet<Comment> Comments { get; set; }
 		public DbSet<Vote> Votes { get; set; }
 		public DbSet<Bookmark> Bookmarks { get; set; }
+		public DbSet<Category> Category { get; set; }
+
 
         public static ApplicationDbContext Create()
         {
