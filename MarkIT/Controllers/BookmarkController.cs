@@ -201,7 +201,7 @@ namespace MarkIT.Controllers
             {
                 //var bookmarks = db.Bookmarks.SqlQuery("Select * from Bookmarks where Contains(title, @word)", new SqlParameter("@word", search));
                 
-                var bookmarks = db.Bookmarks.Where(m => m.Title.Contains(search) || m.Description.Contains(search)).OrderByDescending(a => a.Id);
+                var bookmarks = db.Bookmarks.Where(m => m.Title.Contains(search) || m.Description.Contains(search) || m.Tags.Contains(search)).OrderByDescending(a => a.Id);
 
                 var totalItems = bookmarks.Count();
                 var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
