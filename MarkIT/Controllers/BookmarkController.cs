@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace MarkIT.Controllers
 {
@@ -189,32 +190,38 @@ namespace MarkIT.Controllers
             ViewBag.total = totalItems;
             ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
             ViewBag.Bookmarks = paginatedBookmarks;
-
-
+            
 			return View();
-
 		}
 
 
         public ActionResult Search(string search)
         {
-
-            var bookmarks = db.Bookmarks.Include("User").OrderByDescending(a => a.Id);
-           
-            var totalItems = bookmarks.Count();
-            var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
-            var offset = 0;
-
-            if (!currentPage.Equals(0))
+            try
             {
-                offset = (currentPage - 1) * this._perPage;
-            }
-            var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+                //var bookmarks = db.Bookmarks.SqlQuery("Select * from Bookmarks where Contains(title, @word)", new SqlParameter("@word", search));
+                
+                var bookmarks = db.Bookmarks.Where(m => m.Title.Contains(search) || m.Description.Contains(search)).OrderByDescending(a => a.Id);
 
-            ViewBag.perPage = this._perPage;
-            ViewBag.total = totalItems;
-            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
-            ViewBag.Bookmarks = paginatedBookmarks;
+                var totalItems = bookmarks.Count();
+                var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+                var offset = 0;
+
+                if (!currentPage.Equals(0))
+                {
+                    offset = (currentPage - 1) * this._perPage;
+                }
+                var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+                ViewBag.perPage = this._perPage;
+                ViewBag.total = totalItems;
+                ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+                ViewBag.Bookmarks = paginatedBookmarks;
+            }
+            catch(Exception)
+            {
+                ViewBag.total = 0;
+            }
 
             return View(); 
         }

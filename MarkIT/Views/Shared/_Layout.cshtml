@@ -19,7 +19,7 @@
                 </button>
                 @Html.ActionLink("MarkIT", "Index", "Bookmark", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            @using (Html.BeginForm(actionName: "New", controllerName: "Bookmark"))
+            @using (Html.BeginForm(actionName: "Search", controllerName: "Bookmark"))
             {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -30,7 +30,7 @@
                     }
                     <li style="width: 400px; margin-left:30px;">@Html.TextBox("search", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px; max-width:100%" })</li>
                 </ul>
-                <button class="btn btn-sm btn-success" type="submit" href="/Bookmark/Search" style="margin-top: 10px; margin-left: 3px;">Search</button>
+                <button class="btn btn-sm btn-success" type="submit" style="margin-top: 10px; margin-left: 3px;">Search</button>
 
                 @Html.Partial("_LoginPartial")
             </div>
