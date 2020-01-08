@@ -196,6 +196,29 @@ namespace MarkIT.Controllers
 		}
 
 
+        public ActionResult Search(string search)
+        {
+
+            var bookmarks = db.Bookmarks.Include("User").OrderByDescending(a => a.Id);
+           
+            var totalItems = bookmarks.Count();
+            var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+            var offset = 0;
+
+            if (!currentPage.Equals(0))
+            {
+                offset = (currentPage - 1) * this._perPage;
+            }
+            var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+            ViewBag.perPage = this._perPage;
+            ViewBag.total = totalItems;
+            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+            ViewBag.Bookmarks = paginatedBookmarks;
+
+            return View(); 
+        }
+
 		public ActionResult Vote(int id)
 		{
 			Vote vote = new Vote();
@@ -249,13 +272,13 @@ namespace MarkIT.Controllers
 			ViewBag.BookmarkId = id;
 			return View();
         }
-		public ActionResult SaveBookmark (SavedBookmarks savedBookmark)
+        public ActionResult SaveBookmark(SavedBookmarks savedBookmark)
         {
-			
-			string user = User.Identity.GetUserId();
-			ViewBag.Categories = db.Category.Where(m => m.UserId == user);
-			
-			return View();
+
+            string user = User.Identity.GetUserId();
+            ViewBag.Categories = db.Category.Where(m => m.UserId == user);
+
+            return View();
         }
 
         public ActionResult DeleteSavedBookmark(int id)

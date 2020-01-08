@@ -19,7 +19,8 @@
                 </button>
                 @Html.ActionLink("MarkIT", "Index", "Bookmark", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            
+            @using (Html.BeginForm(actionName: "New", controllerName: "Bookmark"))
+            {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (Request.IsAuthenticated)
@@ -27,12 +28,14 @@
                         <li>@Html.ActionLink("My bookmarks", "PersonalBookmarks", "Bookmark")</li>
                         <li>@Html.ActionLink("Create bookmark", "New", "Bookmark")</li>
                     }
-                        <li style="width: 400px; margin-left:30px;">@Html.TextBox("myTextBox", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px; max-width:100%"})</li>
-                    </ul>
+                    <li style="width: 400px; margin-left:30px;">@Html.TextBox("search", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px; max-width:100%" })</li>
+                </ul>
+                <button class="btn btn-sm btn-success" type="submit" href="/Bookmark/Search" style="margin-top: 10px; margin-left: 3px;">Search</button>
+
                 @Html.Partial("_LoginPartial")
             </div>
-            
-        </div>
+            }
+            </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
