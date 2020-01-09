@@ -4,22 +4,17 @@
 <hr />
 
 <div class="panel panel-default">
-    <h3>Saved Bookmarks</h3>
+    <h3>Saved Bookmarks by category:</h3>
     <br /><br />
     <div class="panel-body">
         <div class="row">
-            @if (ViewBag.SavedBookmarks.Count > 0)
+            @if (ViewBag.categories.Count > 0)
             {
 
-                foreach (var bookmark in ViewBag.SavedBookmarks)
+                foreach (var Category in ViewBag.categories)
                 {
 
-                    <a href="/Bookmark/Show/@bookmark.Id"> <img class="card-img-top" src="@bookmark.ImageLink" alt="Card image cap" width="200" height="300"></a>
-                    <div class="card-body">
-                        <h3 class="card-title">@bookmark.Title</h3>
-                        <i class="glyphicon glyphicon-user"></i>
-                        <strong> @bookmark.User.UserName.Substring(0, bookmark.User.UserName.IndexOf('@'))</strong>
-                    </div>
+            <a class="btn btn-info" href="/user/saved/@Category.UserId/@Category.Id">@Category.Title</a>
                     <br />
 
                 }
