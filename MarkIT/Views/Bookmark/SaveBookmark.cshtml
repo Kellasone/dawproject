@@ -16,12 +16,15 @@
 
         @Html.Hidden("UserId", User.Identity.GetUserId());
         @Html.Hidden("BookmarkId", (string)ViewBag.BookmarkId);
-
-        foreach (var category in ViewBag.Categories)
-        {<strong>@category.Id - @category.Title</strong> <br />}
-
+    <select name="CategoryId">
+        @foreach (var category in ViewBag.Categories)
+        {
+        //<strong>@category.Id - @category.Title</strong>
+        <option  value="@category.Id">@category.Title</option>
+        <br />}
+    </select>
     <br />
-    @Html.TextBox("CategoryId", null, new { @class = "form-control" })
+    //@Html.TextBox("CategoryId", null, new { @class = "form-control" })
 
 
     <button class="btn btn-sm btn-success" type="submit">Save Bookmark</button>

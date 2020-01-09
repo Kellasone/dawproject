@@ -16,6 +16,7 @@ namespace MarkIT.Controllers
             var user = db.Users.Find(id);
             ViewBag.user = user.UserName.Substring(0, user.UserName.IndexOf('@'));
             List<Bookmark> savedBookmarks = new List<Bookmark>();
+            
             foreach (var bookmark in user.SavedBookmarks)
             {
                 savedBookmarks.Add(db.Bookmarks.Find(bookmark.BookmarkId));
