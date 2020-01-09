@@ -9,7 +9,7 @@
         <li>
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Show", "User", new { id=User.Identity.GetUserId()}, htmlAttributes: null)
         </li>
-        <li style="margin-right: 20px"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li style="margin-right: 20px"><a href="javascript:document.getElementById('logoutForm').submit()" type="submit">Log off</a></li>
     </ul>
     }
 }
