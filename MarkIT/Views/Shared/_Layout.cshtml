@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -19,7 +21,8 @@
                 </button>
                 @Html.ActionLink("MarkIT", "Index", "Bookmark", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            
+            @using (Html.BeginForm(actionName: "Search", controllerName: "Bookmark"))
+            {
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (Request.IsAuthenticated)
@@ -27,12 +30,14 @@
                         <li>@Html.ActionLink("My bookmarks", "PersonalBookmarks", "Bookmark")</li>
                         <li>@Html.ActionLink("Create bookmark", "New", "Bookmark")</li>
                     }
-                        <li style="width: 400px; margin-left:30px;">@Html.TextBox("myTextBox", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px; max-width:100%"})</li>
-                    </ul>
+                    <li style="width: 400px; margin-left:30px;">@Html.TextBox("search", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px; max-width:100%" })</li>
+                </ul>
+                <button class="btn btn-sm btn-light" type="submit" style="margin-top: 10px; margin-left: 3px;">Search</button>
+
                 @Html.Partial("_LoginPartial")
             </div>
-            
-        </div>
+            }
+            </div>
     </nav>
     <div class="container body-content">
         @RenderBody()

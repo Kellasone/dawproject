@@ -1,8 +1,7 @@
 ﻿
-@{
-                /**/
 
-                ViewBag.Title = "Bookmarks";
+@{
+    ViewBag.Title = "Bookmarks";
 }
 <h2>@ViewBag.Title</h2>
 <hr />
@@ -14,7 +13,7 @@
 
 @if (ViewBag.total == 0)
 {
-    <p>No bookmark found!</p>
+    <p>No bookmarks found!</p>
 }
 else
 {
@@ -56,9 +55,4 @@ else
             </ul>
         </nav>
     </div>
-
-    <br />
-    <a class="btn btn-danger" style="background: #cc0000;" href="/Bookmark/New">Create Bookmark</a>
-    <br />
-
 }

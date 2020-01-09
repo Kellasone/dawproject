@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace MarkIT.Controllers
 {
@@ -169,32 +170,67 @@ namespace MarkIT.Controllers
 		[Authorize(Roles = "User, Administrator")]
         public ActionResult PersonalBookmarks()
 		{
-			string user = User.Identity.GetUserId();
-            //Bookmark[] listOfPersonalBookmarks = db.Bookmarks.Where(m => m.UserId == user).ToArray();
-            //ViewBag.bookmarks = listOfPersonalBookmarks;
-
-            var bookmarks = db.Bookmarks.Where(m => m.UserId == user).OrderByDescending(a => a.Id);
-
-            var totalItems = bookmarks.Count();
-            var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
-            var offset = 0;
-
-            if(!currentPage.Equals(0))
+            try
             {
-                offset = (currentPage - 1) * this._perPage;
+                string user = User.Identity.GetUserId();
+
+                var bookmarks = db.Bookmarks.Where(m => m.UserId == user).OrderByDescending(a => a.Id);
+
+                var totalItems = bookmarks.Count();
+                var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+                var offset = 0;
+
+                if(!currentPage.Equals(0))
+                {
+                    offset = (currentPage - 1) * this._perPage;
+                }
+                var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+                ViewBag.perPage = this._perPage;
+                ViewBag.total = totalItems;
+                ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+                ViewBag.Bookmarks = paginatedBookmarks;
             }
-            var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
-
-            ViewBag.perPage = this._perPage;
-            ViewBag.total = totalItems;
-            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
-            ViewBag.Bookmarks = paginatedBookmarks;
-
-
+            catch(Exception)
+            {
+                ViewBag.total = 0;
+            }
+			
+            
 			return View();
-
 		}
 
+
+        public ActionResult Search(string search)
+        {
+            try
+            {
+                //var bookmarks = db.Bookmarks.SqlQuery("Select * from Bookmarks where Contains(title, @word)", new SqlParameter("@word", search));
+                
+                var bookmarks = db.Bookmarks.Where(m => m.Title.Contains(search) || m.Description.Contains(search) || m.Tags.Contains(search)).OrderByDescending(a => a.Id);
+
+                var totalItems = bookmarks.Count();
+                var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+                var offset = 0;
+
+                if (!currentPage.Equals(0))
+                {
+                    offset = (currentPage - 1) * this._perPage;
+                }
+                var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+                ViewBag.perPage = this._perPage;
+                ViewBag.total = totalItems;
+                ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+                ViewBag.Bookmarks = paginatedBookmarks;
+            }
+            catch(Exception)
+            {
+                ViewBag.total = 0;
+            }
+
+            return View(); 
+        }
 
 		public ActionResult Vote(int id)
 		{

@@ -255,6 +255,7 @@
     <Content Include="Views\User\Show.cshtml" />
     <Content Include="Views\Bookmark\SaveBookmark.cshtml" />
     <Content Include="Views\Category\New.cshtml" />
+    <Content Include="Views\Bookmark\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Votes\" />
