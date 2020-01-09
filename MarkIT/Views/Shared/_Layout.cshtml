@@ -30,13 +30,14 @@
                         <li>@Html.ActionLink("My bookmarks", "PersonalBookmarks", "Bookmark")</li>
                         <li>@Html.ActionLink("Create bookmark", "New", "Bookmark")</li>
                     }
-                    @using (Html.BeginForm(actionName: "Search", controllerName: "Bookmark", method: FormMethod.Post, htmlAttributes: new { @style = "height: 0px;"}))
+                    @using (Html.BeginForm(actionName: "Search", controllerName: "Bookmark", method: FormMethod.Post, htmlAttributes: new { @style = "height: 0px;" }))
                     {
                         <li style="width: 1000px; margin-left:30px;">@Html.TextBox("search", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px; max-width:40%" })</li>
-                        <button class="invisible" type="submit" style="margin-top: 10px; margin-left: 3px;">Search</button>
+
                     }
 
                 </ul>
+                <button class="invisible" type="submit" style="margin-top: 10px; margin-left: 3px;">Search</button>
                 @Html.Partial("_LoginPartial")
 
 
