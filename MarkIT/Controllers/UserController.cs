@@ -28,10 +28,12 @@ namespace MarkIT.Controllers
             return View();
         }
 
-        public ActionResult Saved(string id, string id2)
+        public ActionResult Saved(string id, int id2)
         {
             var userId = id;
-            var categoryId = Int32.Parse(id2);
+            var categoryId = id2;
+
+            ViewBag.catTitle = db.Category.Find(id2).Title;
             SavedBookmarks[] saved = db.SavedBookmarks.Where(m => m.CategoryId == categoryId && m.UserId == userId).ToArray();
 
             var user = db.Users.Find(userId);

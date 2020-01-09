@@ -4,24 +4,24 @@
 <hr />
 
 <div class="panel panel-default">
-    <h3>Saved Bookmarks by category:</h3>
-    <br /><br />
+    
+   
     <div class="panel-body">
         <div class="row">
             @if (ViewBag.categories.Count > 0)
-            {
-
+            {<h3>Saved Bookmarks by category:</h3>
+                <br /><br />
                 foreach (var Category in ViewBag.categories)
                 {
 
-            <a class="btn btn-info" href="/user/saved/@Category.UserId/@Category.Id">@Category.Title</a>
+                    <a class="btn btn-primary btn-lg btn-block" href="/user/saved/@Category.UserId/@Category.Id">@Category.Title</a>
                     <br />
 
                 }
             }
             else
             {
-                <h4>No saved bookmarks!</h4>
+                <h3>No saved bookmarks!</h3>
             }
         </div>
     </div>
