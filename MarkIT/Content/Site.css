@@ -36,3 +36,14 @@ textarea {
 .row-style {
     margin-top: 50px;
 }
+
+.font-style {
+    font-family: serif;
+    color: #e60000;
+}
+
+.fb-button {
+    background: #4267B2;
+    color: white;
+    font-weight: bold;
+}

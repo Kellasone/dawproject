@@ -10,8 +10,6 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Bookmark"))
 {
-    // Commented the next line because we already have validation under each textbox individually, i dont think we need  the same messages few rows above
-    //actually its useful for debuggin
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     
     @Html.Label("Title", "Bookmark Title")
@@ -47,5 +45,5 @@
     @Html.Hidden("UserId", User.Identity.GetUserId(), new { @class = "form-control" })
 
     <br />
-    <button class="btn btn-sm btn-success" type="submit">Create Bookmark</button>
+    <button class="btn btn-sm" style="background: #cc0000; color: white; font-weight:bold;" type="submit">Create Bookmark</button>
 }

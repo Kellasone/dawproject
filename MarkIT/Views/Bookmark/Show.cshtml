@@ -22,9 +22,9 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         if (ViewBag.Voted == false)
-                        {<a class="btn btn-info" href="/Bookmark/Vote/@Model.Id">Vote</a>}
+                        {<a class="btn btn-sm" style="background: #f2f2f2 ; color: #404040; font-weight: bold;" href="/Bookmark/Vote/@Model.Id">Vote</a>}
                         else
-                        {<a class="btn btn-info" href="/Bookmark/Unvote/@Model.Id">Unvote</a>}
+                        {<a class="btn btn-sm" style="background: #f2f2f2; color: #404040; font-weight: bold;" href="/Bookmark/Unvote/@Model.Id">Unvote</a>}
                     }
                 </h6>
             }
@@ -33,22 +33,23 @@
                     @Model.Votes.Count votes.  @if (User.Identity.IsAuthenticated)
                     {
                         if (ViewBag.Voted == false)
-                        {<a class="btn btn-info" href="/Bookmark/Vote/@Model.Id">Vote</a>}
+                        {<a class="btn btn-sm" style="background: #f2f2f2; color: #404040; font-weight: bold;" href="/Bookmark/Vote/@Model.Id">Vote</a>}
                         else
-                        {<a class="btn btn-info" href="/Bookmark/Unvote/@Model.Id">Unvote</a>}
+                        {<a class="btn btn-sm" style="background: #f2f2f2; color: #404040; font-weight: bold;" href="/Bookmark/Unvote/@Model.Id">Unvote</a>}
                     }
                 </h6>}
             <br />
 
-            @if(User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated)
             {
                 if (!ViewBag.saved)
                 {
-                    <a class="btn btn-info" href="/Bookmark/SaveBookmark/@Model.Id">Save Bookmark</a>
-                }else
+                    <a class="btn btn-danger" style="background: #cc0000;" href="/Bookmark/SaveBookmark/@Model.Id">Save</a>
+                }
+                else
                 {
                     <a class="btn btn-info" disabled>Bookmark saved</a>
-                    <a class="btn btn-info" href="/Bookmark/DeleteSavedBookmark/@Model.Id">Delete Bookmark</a>
+                    <a class="btn btn-info" href="/Bookmark/DeleteSavedBookmark/@Model.Id">Delete</a>
                 }
             }
 
@@ -62,20 +63,23 @@
             else
             {
                 foreach (var comment in Model.Comments)
-                {<h5>
-                        @comment.Content
-                        @if (User.Identity.Name == comment.UserName || User.IsInRole("Administrator"))
-                        {<span>
-                                <a href="/Bookmark/DeleteComment/@comment.CommentId">Delete</a>
-                            </span>}
+                {
+                    <h5>
+                        <i class="glyphicon glyphicon-user"></i>
+                        <strong>@comment.UserName.Substring(0, comment.UserName.IndexOf('@'))</strong>
+
                     </h5>
 
-
-
                     <h6>
-                        @comment.UserName
-
-                    </h6> <br />
+                        @comment.Content
+                        @if (User.Identity.Name == comment.UserName || User.IsInRole("Administrator"))
+                        {
+                            <span>
+                                <a href="/Bookmark/DeleteComment/@comment.CommentId" style="margin-left: 15px;">Delete</a>
+                            </span>
+                        }
+                    </h6>
+                    <br />
                 }
             }
 
@@ -87,7 +91,7 @@
                     @Html.TextBox("content", "", new { @class = "form-control" });
                     @Html.Hidden("BookmarkId", Model.Id, new { @class = "form-control" })
 
-                    <button class="btn btn-sm btn-success" type="submit">Add Comment</button>
+                    <button class="btn btn-sm btn-light" type="submit">Add Comment</button>
                 }
             }
 
@@ -95,7 +99,7 @@
             @if (ViewBag.afisareButoane == true)
             {
                 <a class="btn btn-info" href="/Bookmark/Edit/@Model.Id">Edit</a>
-                <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete Bookmark</a>
+                <a class="btn btn-info" href="/Bookmark/Delete/@Model.Id">Delete</a>
             }
         </div>
     </div>
