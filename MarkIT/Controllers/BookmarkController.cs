@@ -246,19 +246,25 @@ namespace MarkIT.Controllers
 			// return RedirectToAction("/show/" + id);
 			string user = User.Identity.GetUserId();
 			ViewBag.Categories = db.Category.Where(m => m.UserId == user);
-			ViewBag.BookmarkId = id;
-			return View();
-        }
-		public ActionResult SaveBookmark (SavedBookmarks savedBookmark)
-        {
 			
-			string user = User.Identity.GetUserId();
-			ViewBag.Categories = db.Category.Where(m => m.UserId == user);
+			SavedBookmarks savedBookmark = new SavedBookmarks();
 			
-			return View();
-        }
+			ViewBag.BookmarkId = id.ToString();
+			return View(savedBookmark);
 
-        public ActionResult DeleteSavedBookmark(int id)
+        }
+		[HttpPost]
+		public ActionResult SaveBookmark(SavedBookmarks savedBookmarks)
+		{
+			
+			db.SavedBookmarks.Add(savedBookmarks);
+			db.SaveChanges();
+			return RedirectToAction("/show/" + savedBookmarks.BookmarkId);
+		}
+
+
+
+		public ActionResult DeleteSavedBookmark(int id)
         {
             
             int bookmarkId = id;

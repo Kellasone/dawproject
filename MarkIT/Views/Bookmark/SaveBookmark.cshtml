@@ -1,23 +1,38 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 @{
+    /**/
+
     ViewBag.Title = "SaveBookmark";
 }
 
 <h2>SaveBookmark</h2>
 
-@ViewBag.BookmarkId
 @if (Enumerable.Any(ViewBag.Categories))
 {
     <strong>Select a category:</strong>
-    <select>
+    using (Html.BeginForm(actionName: "SaveBookmark", controllerName: "Bookmark"))
 
-        @foreach (var category in ViewBag.Categories)
-        {
-        <option title="" value="@category.Id">@category.Title</option>
-        }
+    {
 
-    </select>
-    
+        @Html.Hidden("UserId", User.Identity.GetUserId());
+        @Html.Hidden("BookmarkId", (string)ViewBag.BookmarkId);
+
+        foreach (var category in ViewBag.Categories)
+        {<strong>@category.Id - @category.Title</strong> <br />}
+
+    <br />
+    @Html.TextBox("CategoryId", null, new { @class = "form-control" })
+
+
+    <button class="btn btn-sm btn-success" type="submit">Save Bookmark</button>
+
+
+}
+
+
+
+
+
 }
 
 
@@ -25,4 +40,18 @@
 <a class="btn btn" href=""></a>
 <hr />
 <a class="btn btn-info" href="/category/new">Create New Category</a>
+
+<script>
+    function SelectedValue() {
+
+
+        var value = document.getElementById("CategoryList").value;
+        var bookmarkId = window.location.href.substring(window.location.href.lastIndexOf("/"), window.location.href.length);
+        var url = window.location.href.substring(0, window.location.href.indexOf("/SaveBookmark")) + "/Helper" + bookmarkId + "/" + value
+        //alert(url);
+        // window.location.redirect(url);
+        $(location).attr('href', url);
+
+    }
+</script>
 

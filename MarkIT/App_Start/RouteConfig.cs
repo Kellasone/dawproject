@@ -12,20 +12,20 @@ namespace MarkIT
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-			routes.MapRoute(
-				name: "SaveBookmark"
-				url: "Bookmark/SaveBookmark/{id}/{categoryid}");
+			
             routes.MapRoute(
                 name: "Bookmarks",
-                url: "{controller}/{action}/{id}",
+                url: "{controller}/{action}/{id}/{id2}",
                 defaults: new
                 {
                     controller = "Bookmark",
                     action = "Index",
-                    id = UrlParameter.Optional
+                    id = UrlParameter.Optional,
+					id2 = UrlParameter.Optional
                 }
             );
-			
-        }
+		
+
+		}
     }
 }
