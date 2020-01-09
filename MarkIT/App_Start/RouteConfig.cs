@@ -15,13 +15,12 @@ namespace MarkIT
 			
             routes.MapRoute(
                 name: "Bookmarks",
-                url: "{controller}/{action}/{id}/{id2}",
+                url: "{controller}/{action}/{id}",
                 defaults: new
                 {
                     controller = "Bookmark",
                     action = "Index",
-                    id = UrlParameter.Optional,
-					id2 = UrlParameter.Optional
+                    id = UrlParameter.Optional
                 }
             );
 		
