@@ -28,8 +28,8 @@ else
                         <div class="card-body">
                             <h3 class="card-title">@bookmark.Title</h3>
                             <i class="glyphicon glyphicon-user"></i>
-                            <strong> @bookmark.User.UserName.Substring(0, bookmark.User.UserName.IndexOf('@'))</strong>
-                        </div>
+                            <a href="/User/show/@bookmark.UserId"><strong> @bookmark.User.UserName.Substring(0, bookmark.User.UserName.IndexOf('@'))</strong></a>
+</div>
                         <br />
                     </div>
                 }

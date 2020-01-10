@@ -103,6 +103,7 @@ namespace MarkIT.Controllers
                 return View(bookmark);
             }
         }
+
         [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
@@ -205,8 +206,7 @@ namespace MarkIT.Controllers
         {
             try
             {
-                //var bookmarks = db.Bookmarks.SqlQuery("Select * from Bookmarks where Contains(title, @word)", new SqlParameter("@word", search));
-                
+                 
                 var bookmarks = db.Bookmarks.Where(m => m.Title.Contains(search) || m.Description.Contains(search) || m.Tags.Contains(search)).OrderByDescending(a => a.Id);
 
                 var totalItems = bookmarks.Count();
@@ -232,6 +232,7 @@ namespace MarkIT.Controllers
             return View(); 
         }
 
+		[Authorize(Roles = "User,Administrator")]
 		public ActionResult Vote(int id)
 		{
 			Vote vote = new Vote();
@@ -242,6 +243,7 @@ namespace MarkIT.Controllers
 			return RedirectToAction("Show/" + id);
 		}
 
+		[Authorize(Roles = "User,Administrator")]
 		public ActionResult Unvote(int id)
 		{
 			
@@ -256,6 +258,7 @@ namespace MarkIT.Controllers
 			return RedirectToAction("Show/" + id);
 		}
 
+		[Authorize(Roles = "User,Administrator")]
 		public ActionResult AddComment()
 		{
 			Comment comment = new Comment();
@@ -265,21 +268,24 @@ namespace MarkIT.Controllers
 		[HttpPost]
 		public ActionResult AddComment(Comment comment)
 		{
+			try
+			{
+				comment.UserName = User.Identity.GetUserName();
+				db.Comments.Add(comment);
+				db.SaveChanges();
+				return RedirectToAction("/show/" + comment.BookmarkId);
+			}
+			catch (Exception)
+			{
+				return RedirectToAction("/show/" + comment.BookmarkId);
+			}
+
 			
-			comment.UserName = User.Identity.GetUserName();
-			db.Comments.Add(comment);
-			db.SaveChanges();
-			return RedirectToAction("/show/"+comment.BookmarkId);
 		}
 
-        public ActionResult SaveBookmark (int id)
+		[Authorize(Roles = "User,Administrator")]
+		public ActionResult SaveBookmark (int id)
         {
-			// SavedBookmarks savedBookmark = new SavedBookmarks();
-			//savedBookmark.BookmarkId = id;
-			//savedBookmark.UserId = User.Identity.GetUserId();
-			// db.SavedBookmarks.Add(savedBookmark);
-			// db.SaveChanges();
-			// return RedirectToAction("/show/" + id);
 			string user = User.Identity.GetUserId();
 			ViewBag.Categories = db.Category.Where(m => m.UserId == user);
 			
@@ -293,14 +299,21 @@ namespace MarkIT.Controllers
 		[HttpPost]
 		public ActionResult SaveBookmark(SavedBookmarks savedBookmarks)
 		{
-			
-			db.SavedBookmarks.Add(savedBookmarks);
-			db.SaveChanges();
-			return RedirectToAction("/show/" + savedBookmarks.BookmarkId);
+			try
+			{
+				db.SavedBookmarks.Add(savedBookmarks);
+				db.SaveChanges();
+				return RedirectToAction("/show/" + savedBookmarks.BookmarkId);
+			}
+			catch (Exception)
+			{
+				return RedirectToAction("/show/" + savedBookmarks.BookmarkId);
+			}
+		
 		}
 
 
-
+		[Authorize(Roles = "User,Administrator")]
 		public ActionResult DeleteSavedBookmark(int id)
         {
             

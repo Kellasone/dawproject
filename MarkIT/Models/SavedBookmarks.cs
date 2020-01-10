@@ -10,11 +10,11 @@ namespace MarkIT.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "User Id is required")]
         public string UserId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Bookmark Id is required")]
         public int BookmarkId { get; set; }
-		[Required]
+		[Required(ErrorMessage = "Category Id is required")]
 		public int CategoryId { get; set; }
 
 

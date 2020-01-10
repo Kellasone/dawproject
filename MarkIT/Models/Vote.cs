@@ -10,9 +10,9 @@ namespace MarkIT.Models
 	{
 		[Key]
 		public int VoteId { get; set; }
-		[Required]
+		[Required(ErrorMessage = "User Id is required")]
 		public string UserId { get; set; }
-		[Required]
+		[Required(ErrorMessage = "Bookmark ID is required")]
 		public int BookmarkId { get; set; }
 
 		public virtual Bookmark Bookmark { get; set; }
