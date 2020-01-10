@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNet.Identity
+@model MarkIT.Models.Category
+
+@{
+    ViewBag.Title = "Edit Category";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Category"))
+{
+    @Html.Label("Title", "Category Title")
+    <br />
+    @Html.TextBox("Title", Model.Title, new { @class = "form-control" })
+    <button class="btn btn-sm btn-success" type="submit">Submit changes</button>
+}

@@ -29,6 +29,10 @@
                     {
                         <li>@Html.ActionLink("My bookmarks", "PersonalBookmarks", "Bookmark")</li>
                         <li>@Html.ActionLink("Create bookmark", "New", "Bookmark")</li>
+                        if (User.IsInRole("Administrator"))
+                        {
+                            <li>@Html.ActionLink("Manage Categories", "show", "Category")</li>
+                        }
                     }
                     @using (Html.BeginForm(actionName: "Search", controllerName: "Bookmark", method: FormMethod.Post, htmlAttributes: new { @style = "height: 0px;" }))
                     {
