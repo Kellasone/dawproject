@@ -11,6 +11,7 @@ namespace MarkIT.Controllers
     {
 		private ApplicationDbContext db = new ApplicationDbContext();
 
+		[Authorize(Roles = "User,Administrator")]
 		public ActionResult New()
 		{
 			Category category = new Category();

@@ -11,9 +11,9 @@ namespace MarkIT.Models
 
 		[Key]
 		public int Id { get; set; }
-		[Required]
+		[Required(ErrorMessage = "UserId is required")]
 		public string UserId { get; set; }
-		[Required]
+		[Required(ErrorMessage = "Title is required")]
 		public string Title { get; set; }
 	}
 }

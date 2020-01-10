@@ -88,7 +88,9 @@
             {
                 using (Html.BeginForm(actionName: "AddComment", controllerName: "Bookmark"))
                 {
-                    @Html.TextBox("content", "", new { @class = "form-control" });
+                                     
+                    @Html.TextBox("content", "", new { @class = "form-control" }); 
+                    
                     @Html.Hidden("BookmarkId", Model.Id, new { @class = "form-control" })
 
                     <button class="btn btn-sm btn-light" type="submit">Add Comment</button>

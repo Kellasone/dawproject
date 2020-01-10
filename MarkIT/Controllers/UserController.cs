@@ -16,12 +16,35 @@ namespace MarkIT.Controllers
             var user = db.Users.Find(id);
             ViewBag.user = user.UserName.Substring(0, user.UserName.IndexOf('@'));
             List<Bookmark> savedBookmarks = new List<Bookmark>();
+            HashSet<Category> categories = new HashSet<Category>();
             
-            foreach (var bookmark in user.SavedBookmarks)
+        
+            
+            foreach(var bookmark in user.SavedBookmarks)
             {
-                savedBookmarks.Add(db.Bookmarks.Find(bookmark.BookmarkId));
-                    }
-            ViewBag.SavedBookmarks = savedBookmarks;
+                categories.Add(db.Category.Find(bookmark.CategoryId));
+            }
+            ViewBag.categories = categories;
+            return View();
+        }
+		
+		public ActionResult Saved(string id, int id2)
+        {
+            var userId = id;
+            var categoryId = id2;
+
+            ViewBag.catTitle = db.Category.Find(id2).Title;
+            SavedBookmarks[] saved = db.SavedBookmarks.Where(m => m.CategoryId == categoryId && m.UserId == userId).ToArray();
+
+            var user = db.Users.Find(userId);
+            ViewBag.user = user.UserName.Substring(0, user.UserName.IndexOf('@'));
+
+            List<Bookmark> listOfSavedBookmarks = new List<Bookmark>();
+            foreach (var bookmark in saved)
+            {
+                listOfSavedBookmarks.Add(db.Bookmarks.Find(bookmark.BookmarkId));
+            }
+            ViewBag.SavedBookmarks = listOfSavedBookmarks;
             return View();
         }
     }

@@ -1,4 +1,5 @@
-﻿using MarkIT.Models;
+﻿using MarkIT.Controllers;
+using MarkIT.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,5 +22,19 @@ namespace MarkIT
             Database.SetInitializer<BookmarkDBContext>(new DropCreateDatabaseIfModelChanges<BookmarkDBContext>());
             Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseIfModelChanges<ApplicationDbContext>());
         }
-    }
+
+		protected void Application_EndRequest()
+		{
+			if (Context.Response.StatusCode == 404)
+			{
+				Response.Clear();
+				var routedata = new RouteData();
+				routedata.Values["controller"] = "Bookmark";
+				routedata.Values["action"] = "Index";
+
+				IController c = new BookmarkController();
+				c.Execute(new RequestContext(new HttpContextWrapper(Context), routedata));
+			}
+		}
+	}
 }

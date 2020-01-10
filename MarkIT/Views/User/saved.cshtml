@@ -1,0 +1,33 @@
+﻿@model MarkIT.Models.Bookmark
+
+<h1>@ViewBag.User</h1>
+<hr />
+
+<div class="panel panel-default">
+    <h3>Saved Bookmarks by @ViewBag.User in @ViewBag.catTitle</h3>
+    <br /><br />
+    <div class="panel-body">
+        <div class="row">
+            @if (ViewBag.SavedBookmarks.Count > 0)
+            {
+
+                foreach (var bookmark in ViewBag.SavedBookmarks)
+                {
+
+                    <a href="/Bookmark/Show/@bookmark.Id"> <img class="card-img-top" src="@bookmark.ImageLink" alt="Card image cap" width="200" height="300"></a>
+                    <div class="card-body">
+                        <h3 class="card-title">@bookmark.Title</h3>
+                        <i class="glyphicon glyphicon-user"></i>
+                        <strong> @bookmark.User.UserName.Substring(0, bookmark.User.UserName.IndexOf('@'))</strong>
+                    </div>
+                    <br />
+
+                }
+            }
+            else
+            {
+                <h4>No saved bookmarks!</h4>
+            }
+        </div>
+    </div>
+</div>
