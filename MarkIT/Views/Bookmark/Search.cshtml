@@ -1,15 +1,18 @@
 ﻿
 
 @{
-    ViewBag.Title = "Bookmarks";
+   
 }
 <h2>@ViewBag.Title</h2>
-<hr />
 
-@if (TempData.ContainsKey("message"))
-{
-    <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
-}
+<h5>Sort by</h5>
+<select class="form-control" id="SearchDropDown" style="width: auto;" onchange="sortBy">
+    <option value="Date">Date</option>
+    <option value="Title">Title</option>
+</select>
+
+<br />
+<br />
 
 @if (ViewBag.total == 0)
 {
@@ -56,3 +59,20 @@ else
         </nav>
     </div>
 }
+
+<script>
+    function sortBy() {
+        console.log("title");
+        var select = document.getElementById("SearchDropDown");
+        var value = select.options[select.selectedIndex].value;
+
+        if (value == "Title")
+            var bookmarks = ViewBag.Bookmarks;
+
+        bookmarks.sortBy(Title);
+
+        ViewBag.Bookmarks = bookmarks;
+
+        console.log("title");
+    }
+</script>
