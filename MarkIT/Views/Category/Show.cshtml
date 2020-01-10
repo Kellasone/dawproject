@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Categories";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<div class="panel panel-default">
+    <table class="table">
+        <tr>
+            <th>Category Id</th>
+        <th>Title</th>
+        <th>UserId</th>
+        </tr>
+        @foreach (var category in ViewBag.categories)
+        {
+
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Title</td>
+                <td>@category.UserId</td>
+                <td><a class="btn btn-info" href="/category/edit/@category.Id">Edit Title</a></td>
+                <td><a class="btn btn-info" href="/category/delete/@category.Id">Delete</a></td>
+            </tr>
+
+        }
+    </table>
+    </div>
