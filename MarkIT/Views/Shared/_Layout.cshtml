@@ -37,7 +37,7 @@
                     @using (Html.BeginForm(actionName: "Search", controllerName: "Bookmark", method: FormMethod.Post, htmlAttributes: new { @style = "height: 0px;" }))
                     {
                         <li style="width: 1000px; margin-left:30px;">@Html.TextBox("search", "", new { @class = "form-control", placeholder = "Search...", style = "margin-top: 8px; max-width:40%" })</li>
-
+                        @Html.Hidden("sortType", "Date");
                     }
 
                 </ul>

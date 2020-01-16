@@ -202,27 +202,50 @@ namespace MarkIT.Controllers
 		}
 
 
-        public ActionResult Search(string search)
+        public ActionResult Search(string search, string sortType)
         {
             try
             {
-                 
-                var bookmarks = db.Bookmarks.Where(m => m.Title.Contains(search) || m.Description.Contains(search) || m.Tags.Contains(search)).OrderByDescending(a => a.Id);
-
-                var totalItems = bookmarks.Count();
-                var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
-                var offset = 0;
-
-                if (!currentPage.Equals(0))
+                ViewBag.total = 0;
+                if(sortType == "Date")
                 {
-                    offset = (currentPage - 1) * this._perPage;
-                }
-                var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+                    var bookmarks = db.Bookmarks.Where(m => m.Title.Contains(search) || m.Description.Contains(search) || m.Tags.Contains(search)).OrderByDescending(a => a.Id);
 
-                ViewBag.perPage = this._perPage;
-                ViewBag.total = totalItems;
-                ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
-                ViewBag.Bookmarks = paginatedBookmarks;
+                    var totalItems = bookmarks.Count();
+                    var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+                    var offset = 0;
+
+                    if (!currentPage.Equals(0))
+                    {
+                        offset = (currentPage - 1) * this._perPage;
+                    }
+                    var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+                    ViewBag.perPage = this._perPage;
+                    ViewBag.total = totalItems;
+                    ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+                    ViewBag.Bookmarks = paginatedBookmarks;
+                }
+                else
+                {
+                    var bookmarks = db.Bookmarks.Where(m => m.Title.Contains(search) || m.Description.Contains(search) || m.Tags.Contains(search)).OrderBy(a => a.Title);
+
+                    var totalItems = bookmarks.Count();
+                    var currentPage = Convert.ToInt32(Request.Params.Get("Page"));
+                    var offset = 0;
+
+                    if (!currentPage.Equals(0))
+                    {
+                        offset = (currentPage - 1) * this._perPage;
+                    }
+                    var paginatedBookmarks = bookmarks.Skip(offset).Take(this._perPage);
+
+                    ViewBag.perPage = this._perPage;
+                    ViewBag.total = totalItems;
+                    ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
+                    ViewBag.Bookmarks = paginatedBookmarks;
+                }
+
             }
             catch(Exception)
             {

@@ -6,7 +6,7 @@
 <h2>@ViewBag.Title</h2>
 
 <h5>Sort by</h5>
-<select class="form-control" id="SearchDropDown" style="width: auto;" onchange="sortBy">
+<select class="form-control" id="SearchDropDown" style="width: auto;" onchange="sortBy(this.value)">
     <option value="Date">Date</option>
     <option value="Title">Title</option>
 </select>
@@ -61,18 +61,7 @@ else
 }
 
 <script>
-    function sortBy() {
-        console.log("title");
-        var select = document.getElementById("SearchDropDown");
-        var value = select.options[select.selectedIndex].value;
-
-        if (value == "Title")
-            var bookmarks = ViewBag.Bookmarks;
-
-        bookmarks.sortBy(Title);
-
-        ViewBag.Bookmarks = bookmarks;
-
-        console.log("title");
+    function sortBy(val) {
+        location.replace();
     }
 </script>

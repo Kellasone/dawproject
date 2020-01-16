@@ -16,7 +16,7 @@
 
         @Html.Hidden("UserId", User.Identity.GetUserId());
         @Html.Hidden("BookmarkId", (string)ViewBag.BookmarkId);
-    <select name="CategoryId" class="selectpicker">
+    <select name="CategoryId" class="form-control" style="width: auto;">
         @foreach (var category in ViewBag.Categories)
         {
         //<strong>@category.Id - @category.Title</strong>
